@@ -38,7 +38,43 @@ Feedback is provided in terms of heuristic function
 <h3>Step-4:</h3>
 <p> Lopp Step -2 and Step-3  until we achieve the score to be Zero to achieve Global Minima.</p>
 
-<hr>
+ ### Program:
+ ```
+import random
+import string
+def generate_random_solution(ans):
+    l=len(ans)
+    random_soln=[random.choice(string.printable) for _ in range(l)]
+    return random_soln
+def mutate(soln):
+    ind=random.randint(0,len(soln)-1)
+    soln[ind]=random.choice(string.printable)
+    return soln
+def evaluate(solution,answer):
+
+    ans=list(answer)
+    diff=0
+    for i in range(len(solution)):
+        s=solution[i]
+        a=ans[i]
+        diff= diff+ abs(ord(a)-ord(s))
+    return diff
+
+def simplehillclimbing():
+    answer=input()
+    best=generate_random_solution(answer)
+    best_score=evaluate(best,answer)
+    while True:
+        print(best_score,''.join(best))
+        if best_score==0:
+            break
+        new_soln=mutate(list(best))
+        score=evaluate(new_soln,answer)
+        if score<best_score:
+            best_score=score
+            best=new_soln
+simplehillclimbing()
+```
 <h2>Sample Input and Output</h2>
 <h2>Sample String:</h2> Artificial Intelligence
 <h2>Output:</h2>
@@ -51,7 +87,8 @@ Score: 551  Solution :  8RzF:oGK]%;CPqRRWe!zGqk<br>
 Score: 551  Solution :  8RzF:oGK]%;CPqRRWe!zGqk<br>
 Score: 551  Solution :  8RzF:oGK]%;CPqRRWe!zGqk<br>
 Score: 551  Solution :  8RzF:oGK]%;CPqRRWe!zGqk<br>
-....................................................<br>
+.......................................
+.............<br>
 ..................................................<br>
 ................................................<br>
 Score: 1  Solution :  Artificial Intelligencf<br>
@@ -59,3 +96,9 @@ Score: 1  Solution :  Artificial Intelligencf<br>
 Score: 1  Solution :  Artificial Intelligencf<br>
 Score: 1  Solution :  Artificial Intelligencf<br>
 Score: 0  Solution :  Artificial Intelligence<br>
+
+### Output:
+<img width="411" height="586" alt="image" src="https://github.com/user-attachments/assets/3ce4f6a3-0710-4a54-ad18-80cd0fa2fe0d" />
+
+### Result:
+The Simple Hill Climbing algorithm successfully generated the target string by mutating one character at each iteration until an exact match was achieved.
